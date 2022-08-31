@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-fstring-interpolation
+# SPDX-License-Identifier: MIT
 
 from pathlib import Path
 
