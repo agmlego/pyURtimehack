@@ -1,0 +1,8 @@
+.venv
+test
+test.txt
+__pycache__
+*log.csv
+build
+dist
+log.txt
