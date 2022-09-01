@@ -127,14 +127,17 @@ def set_robot_time(robot: str, config: ConfigParser) -> bool:
 def make_robot_log(robot: str, config: ConfigParser, message: str):
     logger.info(f'Adding message to {robot} log: {message!r}')
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.settimeout(0.5)
         sock.connect((
             config.get(section=robot, option='address'),
             config.getint(section=robot, option='dashboard_port'),
         ))
-        sock.sendall(f'addToLog {message}'.encode())
-        resp = sock.recv(21)
+        greeting = sock.recv(45).strip()
+        logger.debug(f'Connected to {robot}: {greeting.decode()}')
+        sock.sendall(f'addToLog {message}\n'.encode())
+        resp = sock.recv(21).strip()
     if resp != b'Added log message':
-        logger.warning(f'Unexpected response from {robot}: {resp.decode()}')
+        logger.warning(f'Unexpected response from {robot}: {resp!r}')
     else:
         logger.debug(f'Successfully added message to {robot} log')
 
