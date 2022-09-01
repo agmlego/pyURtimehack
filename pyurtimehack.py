@@ -25,6 +25,7 @@ logging.basicConfig(
     handlers=[RichHandler(rich_tracebacks=True)]
 )
 logger = logging.getLogger(MODULE)
+logging.getLogger('paramiko').setLevel(logging.WARNING)
 
 
 def get_config():
