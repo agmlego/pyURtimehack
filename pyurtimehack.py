@@ -210,7 +210,7 @@ def main():
     """Main program logic"""
     config = get_config()
     for robot in config.sections():
-        success = set_robot_time(robot=robot, config=config)
+        _ = set_robot_time(robot=robot, config=config)
 
 
 if __name__ == '__main__':
